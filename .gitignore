@@ -1,0 +1,10 @@
+*
+!.gitignore
+!README.md
+!DESIGN.md
+!package.json
+!package-lock.json
+!lib
+!lib/**/*.js
+!test
+!test/**/*.js
