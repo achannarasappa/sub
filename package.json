@@ -8,15 +8,20 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npm test"
+    "lint": "eslint --fix . || exit 0"
   },
   "author": "Ani Channarasappa <npm@fireantx.com> (https://github.com/achannarasappa)",
   "license": "MIT",
   "devDependencies": {
+    "@achannarasappa/eslint-config": "^1.0.1",
     "ava": "^0.24.0",
+    "eslint": "^4.12.1",
     "pkg": "^4.3.0-beta.1"
   },
   "dependencies": {
     "yargs": "^10.0.3"
+  },
+  "eslintConfig": {
+    "extends": "@achannarasappa/eslint-config"
   }
 }
