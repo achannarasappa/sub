@@ -1,5 +1,7 @@
 const test = require('ava');
+const _ = require('highland');
 const {
+  replaceInStream,
   replaceAndCount,
   updateCounts,
 } = require('../lib/replace');
@@ -71,4 +73,79 @@ test('replaceAndCount no replacements', (t) => {
     }
   )
 
+})
+
+test('replaceInStream with replacements', (t) => {
+
+  const inputReplaceMap = {
+    a: 1,
+    b: 2
+  };
+  const intputReplaceRegex = new RegExp('a|b', 'g');
+  const inputStream = _(['abcdefg\ngfbdcbeb'])
+
+  replaceInStream(
+    inputReplaceMap,
+    intputReplaceRegex,
+    inputStream
+  )
+  .toArray(result => {
+
+    t.deepEqual(
+      result,
+      [
+        {
+          lineText: '12cdefg',
+          counts: {
+            a: 1,
+            b: 1
+          }
+        },
+        {
+          lineText: 'gf2dc2e2',
+          counts: {
+            b: 3
+          }
+        }
+      ]
+    )
+
+  })
+
+  
+})
+
+test('replaceInStream no replacements', (t) => {
+
+  const inputReplaceMap = {
+    a: 1,
+    b: 2
+  };
+  const intputReplaceRegex = new RegExp('a|b', 'g');
+  const inputStream = _(['trcdefg\ngfrdcrer'])
+
+  replaceInStream(
+    inputReplaceMap,
+    intputReplaceRegex,
+    inputStream
+  )
+  .toArray(result => {
+
+    t.deepEqual(
+      result,
+      [
+        {
+          lineText: 'trcdefg',
+          counts: {}
+        },
+        {
+          lineText: 'gfrdcrer',
+          counts: {}
+        }
+      ]
+    )
+
+  })
+
+  
 })
