@@ -25,11 +25,27 @@ const inputArray = [
   }
 ];
 
+const removeFile = (path) => {
+
+  try {
+    
+    fs.unlinkSync(path)
+
+  } catch (e) {
+
+    console.log(e.message);
+
+  }
+  
+};
+
 test('writeOutput file', async (t) => {
 
   const inputStream = _(inputArray)
   const inputPath = './tmp/inplace_true.txt';
   const intputWriteFileFn = writeFile(inputPath);
+
+  removeFile(inputPath)
 
   await writeOutput(inputStream, intputWriteFileFn)
   
