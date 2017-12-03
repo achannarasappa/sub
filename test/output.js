@@ -57,15 +57,10 @@ test('gatherCounts', async (t) => {
   t.deepEqual(
     await inputStream
     .through(gatherCounts),
-    [
-      {
-        a: 1,
-        b: 1
-      },
-      {
-        b: 3
-      }
-    ]
+    {
+      a: 1,
+      b: 4
+    }
   )
 
 })
