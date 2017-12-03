@@ -44,16 +44,12 @@ test('writeFile inPlace true', async (t) => {
   const inputPath = './tmp/inplace_true.txt';
   const outputArray = [
     {
-      counts: {
         a: 1,
         b: 1
-      }
-    },
-    {
-      counts: {
+      },
+     {
         b: 3
       }
-    }
   ];
 
   const result = await writeFileStream(true, inputPath, inputStream)  
