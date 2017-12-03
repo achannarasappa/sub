@@ -2,7 +2,8 @@ const test = require('ava');
 const _ = require('highland');
 const fs = require('fs');
 const {
-  writeFile
+  writeFile,
+  gatherCounts
 } = require('../lib/output');
 
 const inputArray = [
@@ -40,11 +41,31 @@ test('writeFile error', async (t) => {
   const inputStream = _(inputArray)
   const inputPath = './tmp//';
 
-  const error = await t.throws(writeFile(inputPath, inputStream), Error);
+  const testError = await t.throws(writeFile(inputPath, inputStream), Error);
 
   t.is(
-    error.message,
+    testError.message,
     'EISDIR: illegal operation on a directory, open \'./tmp//\''
+  )
+
+})
+
+test('gatherCounts', async (t) => {
+
+  const inputStream = _(inputArray)
+
+  t.deepEqual(
+    await inputStream
+    .through(gatherCounts),
+    [
+      {
+        a: 1,
+        b: 1
+      },
+      {
+        b: 3
+      }
+    ]
   )
 
 })
