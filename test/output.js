@@ -2,7 +2,7 @@ const test = require('ava');
 const _ = require('highland');
 const fs = require('fs');
 const {
-  writeFileStream
+  writeFile
 } = require('../lib/output');
 
 const inputArray = [
@@ -21,47 +21,30 @@ const inputArray = [
   }
 ];
 
-test('writeFile inPlace false', (t) => {
-
-  const inputStream = _(inputArray)
-  const path = './tmp/inplace_false.txt';
-
-  writeFileStream(false, path, inputStream)
-  .toArray(result => {
-
-    t.deepEqual(
-      result,
-      inputArray
-    )
-
-  })
-
-})
-
-test('writeFile inPlace true', async (t) => {
+test('writeFile', async (t) => {
 
   const inputStream = _(inputArray)
   const inputPath = './tmp/inplace_true.txt';
-  const outputArray = [
-    {
-        a: 1,
-        b: 1
-      },
-     {
-        b: 3
-      }
-  ];
 
-  const result = await writeFileStream(true, inputPath, inputStream)  
-
-  t.deepEqual(
-    outputArray,
-    result
-  )
+  await writeFile(inputPath, inputStream)
   
   t.is(
     fs.readFileSync(inputPath, 'utf8'),
     '12cdefg\ngf2dc2e2'
+  )
+
+})
+
+test('writeFile error', async (t) => {
+
+  const inputStream = _(inputArray)
+  const inputPath = './tmp//';
+
+  const error = await t.throws(writeFile(inputPath, inputStream), Error);
+
+  t.is(
+    error.message,
+    'EISDIR: illegal operation on a directory, open \'./tmp//\''
   )
 
 })
