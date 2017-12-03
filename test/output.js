@@ -3,7 +3,7 @@ const _ = require('highland');
 const fs = require('fs');
 const {
   writeFileStream
-} = require('../lib/file');
+} = require('../lib/output');
 
 const inputArray = [
   {
