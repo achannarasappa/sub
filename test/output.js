@@ -1,10 +1,12 @@
 const test = require('ava');
 const _ = require('highland');
 const fs = require('fs');
+const interceptStdout = require("intercept-stdout");
 const {
   writeOutput,
   writeFile,
-  gatherCounts
+  writeStdout,
+  gatherCounts,
 } = require('../lib/output');
 
 const inputArray = [
@@ -23,7 +25,7 @@ const inputArray = [
   }
 ];
 
-test('writeOutput', async (t) => {
+test('writeOutput file', async (t) => {
 
   const inputStream = _(inputArray)
   const inputPath = './tmp/inplace_true.txt';
@@ -38,7 +40,7 @@ test('writeOutput', async (t) => {
 
 })
 
-test('writeOutput error', async (t) => {
+test('writeOutput file error', async (t) => {
 
   const inputStream = _(inputArray)
   const inputPath = './tmp//';
@@ -64,6 +66,25 @@ test('gatherCounts', async (t) => {
       a: 1,
       b: 4
     }
+  )
+
+})
+
+test('writeOutput stdout', async (t) => {
+
+  const inputStream = _(inputArray)
+  let testOutput = '';
+  const stopStdoutcapture = interceptStdout((testLine) => {
+    testOutput += testLine
+  })
+
+  await writeOutput(inputStream)
+
+  stopStdoutcapture()
+  
+  t.is(
+    testOutput,
+    '12cdefg\ngf2dc2e2'
   )
 
 })
