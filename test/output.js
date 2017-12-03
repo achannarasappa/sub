@@ -2,6 +2,7 @@ const test = require('ava');
 const _ = require('highland');
 const fs = require('fs');
 const {
+  writeOutput,
   writeFile,
   gatherCounts
 } = require('../lib/output');
@@ -22,12 +23,13 @@ const inputArray = [
   }
 ];
 
-test('writeFile', async (t) => {
+test('writeOutput', async (t) => {
 
   const inputStream = _(inputArray)
   const inputPath = './tmp/inplace_true.txt';
+  const intputWriteFileFn = writeFile(inputPath);
 
-  await writeFile(inputPath, inputStream)
+  await writeOutput(inputStream, intputWriteFileFn)
   
   t.is(
     fs.readFileSync(inputPath, 'utf8'),
@@ -36,12 +38,13 @@ test('writeFile', async (t) => {
 
 })
 
-test('writeFile error', async (t) => {
+test('writeOutput error', async (t) => {
 
   const inputStream = _(inputArray)
   const inputPath = './tmp//';
+  const intputWriteFileFn = writeFile(inputPath);
 
-  const testError = await t.throws(writeFile(inputPath, inputStream), Error);
+  const testError = await t.throws(writeOutput(inputStream, intputWriteFileFn), Error);
 
   t.is(
     testError.message,
