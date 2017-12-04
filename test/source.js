@@ -65,6 +65,8 @@ test('readSource env', (t) => {
 
 })
 
+test.todo('readSource stdin error')
+
 test('parseStdin', (t) => {
 
   const testResult = parseStdin(inputStdin)
