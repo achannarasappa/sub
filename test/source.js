@@ -5,7 +5,8 @@ const {
   execFunction
 } = require('./_util')
 const {
-  readSource
+  readSource,
+  parseStdin
 } = require('../lib/source');
 
 const inputEnv = {
@@ -13,15 +14,14 @@ const inputEnv = {
   'TEST2': 'replace2',
   'TEST3': 'replace3',
 }
+const inputStdin = R.pipe(
+  R.toPairs(),
+  R.map(R.join('=')),
+  R.join('\n')
+)(inputEnv)
 
 
 test('readSource stdin', (t) => {
-
-  const inputStdin = R.pipe(
-    R.toPairs(),
-    R.map(R.join('=')),
-    R.join('')
-  )(inputEnv)
 
   const testResult = execFunction(
     './lib/source',
@@ -31,12 +31,11 @@ test('readSource stdin', (t) => {
   )
   const testResultParsed = R.pipe(
     JSON.parse,
-    R.dropLast(1)
   )(testResult)
   
-  t.is(
+  t.deepEqual(
     testResultParsed,
-    inputStdin
+    inputEnv
   )
 
 })
@@ -64,4 +63,16 @@ test('readSource env', (t) => {
     inputEnv,
   )
 
+})
+
+test('parseStdin', (t) => {
+
+  const testResult = parseStdin(inputStdin)
+
+  t.deepEqual(
+    testResult,
+    inputEnv,
+  )
+
+  
 })
