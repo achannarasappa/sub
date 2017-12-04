@@ -1,17 +1,21 @@
 const shell = require('shelljs');
 const R = require('ramda');
 
-const execFunction = (file, func, stdin, funcArgs = []) => {
+const execFunction = (file, func, funcArgs = [], commandPrefix = '') => {
   
-  const runner = [
+  const script = [
     `const {${func}} = require('${file}');`,
-    `(async () => console.log(await ${func}(${funcArgs.join(',')})))()`
+    `(async () => process.stdout.write(JSON.stringify(await ${func}(${funcArgs.join(',')}))))()`
   ].join('')
+  
+  const command = `${commandPrefix} node -e "${script}"`
+  
+  const result = shell.exec(command, { silent: true })
 
-  const command = shell.exec(`echo "${stdin}" | node -e "${runner}"`)
-  const stdoutLengthWithoutNewline = command.stdout.length - 2
+  if (result.stderr)
+    console.log(result.stderr);
 
-  return R.take(stdoutLengthWithoutNewline, command.stdout)
+  return result.stdout
 
 };
 
