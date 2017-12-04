@@ -6,19 +6,25 @@ const {
 } = require('./_util')
 const {
   readSource,
-  parseStdin
+  parseStdin,
+  convertToReplaceMap
 } = require('../lib/source');
 
-const inputEnv = {
+const inputMap = {
   'TEST1': 'replace1',
   'TEST2': 'replace2',
   'TEST3': 'replace3',
+}
+const outputReplaceMap = {
+  '${TEST1}': 'replace1',
+  '${TEST2}': 'replace2',
+  '${TEST3}': 'replace3',
 }
 const inputStdin = R.pipe(
   R.toPairs(),
   R.map(R.join('=')),
   R.join('\n')
-)(inputEnv)
+)(inputMap)
 
 
 test('readSource stdin', (t) => {
@@ -35,7 +41,7 @@ test('readSource stdin', (t) => {
   
   t.deepEqual(
     testResultParsed,
-    inputEnv
+    outputReplaceMap
   )
 
 })
@@ -46,9 +52,9 @@ test('readSource env', (t) => {
     R.toPairs(),
     R.map(R.join('=')),
     R.join(' ')
-  )(inputEnv)
+  )(inputMap)
   
-  const inputEnvKeys = R.keys(inputEnv)
+  const inputEnvKeys = R.keys(outputReplaceMap)
 
   const testResult = execFunction(
     './lib/source',
@@ -60,12 +66,10 @@ test('readSource env', (t) => {
   
   t.deepEqual(
     R.pick(inputEnvKeys, testResultParsed),
-    inputEnv,
+    outputReplaceMap,
   )
 
 })
-
-test.todo('readSource stdin error')
 
 test('parseStdin', (t) => {
 
@@ -73,8 +77,21 @@ test('parseStdin', (t) => {
 
   t.deepEqual(
     testResult,
-    inputEnv,
+    inputMap,
   )
 
   
 })
+
+test('convertToReplaceMap', (t) => {
+
+  const testResult = convertToReplaceMap(inputMap)
+
+  t.deepEqual(
+    testResult,
+    outputReplaceMap
+  )
+  
+})
+
+test.todo('readSource stdin error')
