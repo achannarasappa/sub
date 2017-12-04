@@ -7,7 +7,8 @@ const {
 const {
   readSource,
   parseStdin,
-  convertToReplaceMap
+  convertToReplaceMap,
+  createReplaceRegex
 } = require('../lib/source');
 
 const inputMap = {
@@ -92,6 +93,18 @@ test('convertToReplaceMap', (t) => {
     outputReplaceMap
   )
   
+})
+
+test('createReplaceRegex', (t) => {
+
+  const testResult = createReplaceRegex(outputReplaceMap)
+
+  t.deepEqual(
+    testResult,
+    new RegExp('${TEST1}|${TEST2}|${TEST3}', 'g')
+  )
+
+
 })
 
 test.todo('readSource stdin error')
