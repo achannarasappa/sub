@@ -21,6 +21,7 @@ const outputReplaceMap = {
   '${TEST2}': 'replace2',
   '${TEST3}': 'replace3',
 }
+const outputReplaceRegex = new RegExp('${TEST1}|${TEST2}|${TEST3}', 'g');
 const inputStdin = R.pipe(
   R.toPairs(),
   R.map(R.join('=')),
@@ -36,13 +37,11 @@ test('readSource stdin', (t) => {
     [],
     `echo "${inputStdin}" | `
   )
-  const testResultParsed = R.pipe(
-    JSON.parse,
-  )(testResult)
+  const testResultParsed = JSON.parse(testResult)
   
   t.deepEqual(
     testResultParsed,
-    outputReplaceMap
+    inputMap
   )
 
 })
@@ -55,7 +54,7 @@ test('readSource env', (t) => {
     R.join(' ')
   )(inputMap)
   
-  const inputEnvKeys = R.keys(outputReplaceMap)
+  const inputEnvKeys = R.keys(inputMap)
 
   const testResult = execFunction(
     './lib/source',
@@ -67,7 +66,7 @@ test('readSource env', (t) => {
   
   t.deepEqual(
     R.pick(inputEnvKeys, testResultParsed),
-    outputReplaceMap,
+    inputMap,
   )
 
 })
@@ -80,7 +79,6 @@ test('parseStdin', (t) => {
     testResult,
     inputMap,
   )
-
   
 })
 
@@ -101,9 +99,8 @@ test('createReplaceRegex', (t) => {
 
   t.deepEqual(
     testResult,
-    new RegExp('${TEST1}|${TEST2}|${TEST3}', 'g')
+    outputReplaceRegex
   )
-
 
 })
 
