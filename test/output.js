@@ -6,6 +6,7 @@ const {
   removeFile
 } = require('./_util')
 const {
+  outputStream,
   writeOutput,
   writeFile,
   writeStdout,
@@ -27,21 +28,74 @@ const inputArray = [
     }
   }
 ];
+const outputContent = '12cdefg\ngf2dc2e2';
+
+test.serial('outputStream inPlace false', async (t) => {
+
+  const inputStream = _(inputArray)
+  const inputPath = './tmp/outputStream.txt';
+
+  let testOutput = '';
+  const stopStdoutcapture = interceptStdout((testLine) => {
+    testOutput += testLine
+  })
+
+  await outputStream(inputPath, false, inputStream)
+
+  stopStdoutcapture()
+  
+  t.is(
+    testOutput,
+    outputContent
+  )
+  
+})
+
+test('outputStream inPlace true', async (t) => {
+
+  const inputStream = _(inputArray)
+  const inputPath = './tmp/outputStream.txt';
+
+  await outputStream(inputPath, true, inputStream)
+
+  t.is(
+    fs.readFileSync(inputPath, 'utf8'),
+    outputContent
+  )
+  
+})
+
+test('outputStream inPlace string', async (t) => {
+
+  const inputStream = _(inputArray)
+  const inputPath = './tmp/outputStream.txt';
+  const outputPath = './tmp/outputStream.txt.backup';
+
+  await outputStream(inputPath, '.backup', inputStream)
+
+  t.is(
+    fs.readFileSync(outputPath, 'utf8'),
+    outputContent
+  )
+
+  removeFile(outputPath)
+  
+})
 
 test('writeOutput file', async (t) => {
 
   const inputStream = _(inputArray)
-  const inputPath = './tmp/inplace_true.txt';
+  const inputPath = './tmp/writeOutput.txt';
   const intputWriteFileFn = writeFile(inputPath);
-
-  removeFile(inputPath)
 
   await writeOutput(inputStream, intputWriteFileFn)
   
   t.is(
     fs.readFileSync(inputPath, 'utf8'),
-    '12cdefg\ngf2dc2e2'
+    outputContent
   )
+
+  removeFile(inputPath)
 
 })
 
@@ -75,9 +129,10 @@ test('gatherCounts', async (t) => {
 
 })
 
-test('writeOutput stdout', async (t) => {
+test.serial('writeOutput stdout', async (t) => {
 
   const inputStream = _(inputArray)
+
   let testOutput = '';
   const stopStdoutcapture = interceptStdout((testLine) => {
     testOutput += testLine
@@ -89,7 +144,7 @@ test('writeOutput stdout', async (t) => {
   
   t.is(
     testOutput,
-    '12cdefg\ngf2dc2e2'
+    outputContent
   )
 
 })
