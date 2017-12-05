@@ -15,16 +15,16 @@ const inputResult = {
 
 test('updateCounts new count', (t) => {
 
-  t.deepEqual(updateCounts({}, 'a'), {
-    a: 1
+  t.deepEqual(updateCounts({}, '${a}'), {
+    '${a}': 1
   })
 
 })
 
 test('updateCounts add count', (t) => {
 
-  t.deepEqual(updateCounts({a: 10}, 'a'), {
-    a: 11
+  t.deepEqual(updateCounts({'${a}': 10}, '${a}'), {
+    '${a}': 11
   })
 
 })
@@ -75,7 +75,7 @@ test('replaceAndCount no replacements', (t) => {
 
 })
 
-test('replaceInStream with replacements', (t) => {
+test('replaceInStream with replacements', async (t) => {
 
   const inputReplaceMap = {
     a: 1,
@@ -84,12 +84,14 @@ test('replaceInStream with replacements', (t) => {
   const intputReplaceRegex = new RegExp('a|b', 'g');
   const inputStream = _(['abcdefg\ngfbdcbeb'])
 
-  replaceInStream(
+  await replaceInStream(
     inputReplaceMap,
     intputReplaceRegex,
     inputStream
   )
-  .toArray(result => {
+  .collect()
+  .toPromise(Promise)
+  .then(result => {
 
     t.deepEqual(
       result,
@@ -115,7 +117,7 @@ test('replaceInStream with replacements', (t) => {
   
 })
 
-test('replaceInStream no replacements', (t) => {
+test('replaceInStream no replacements', async (t) => {
 
   const inputReplaceMap = {
     a: 1,
@@ -124,12 +126,14 @@ test('replaceInStream no replacements', (t) => {
   const intputReplaceRegex = new RegExp('a|b', 'g');
   const inputStream = _(['trcdefg\ngfrdcrer'])
 
-  replaceInStream(
+  await replaceInStream(
     inputReplaceMap,
     intputReplaceRegex,
     inputStream
   )
-  .toArray(result => {
+  .collect()
+  .toPromise(Promise)
+  .then(result => {
 
     t.deepEqual(
       result,
@@ -146,6 +150,5 @@ test('replaceInStream no replacements', (t) => {
     )
 
   })
-
   
 })
