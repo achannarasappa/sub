@@ -9,7 +9,7 @@ const {
   inputStream
 } = require('../lib/input');
 
-test('inputStream', async (t) => {
+test.serial('inputStream', async (t) => {
 
   const inputFiles = [
     {
