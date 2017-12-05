@@ -19,6 +19,21 @@ const execFunction = (file, func, funcArgs = [], commandPrefix = '') => {
 
 };
 
+const removeFile = (path) => {
+  
+    try {
+      
+      fs.unlinkSync(path)
+  
+    } catch (e) {
+  
+      console.log(e.message);
+  
+    }
+    
+  };
+
 module.exports = {
-  execFunction
+  execFunction,
+  removeFile
 };
