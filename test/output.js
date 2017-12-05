@@ -3,6 +3,9 @@ const _ = require('highland');
 const fs = require('fs');
 const interceptStdout = require("intercept-stdout");
 const {
+  removeFile
+} = require('./_util')
+const {
   writeOutput,
   writeFile,
   writeStdout,
@@ -24,20 +27,6 @@ const inputArray = [
     }
   }
 ];
-
-const removeFile = (path) => {
-
-  try {
-    
-    fs.unlinkSync(path)
-
-  } catch (e) {
-
-    console.log(e.message);
-
-  }
-  
-};
 
 test('writeOutput file', async (t) => {
 
