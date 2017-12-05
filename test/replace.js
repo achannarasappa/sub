@@ -15,7 +15,7 @@ const inputResult = {
 
 test('updateCounts new count', (t) => {
 
-  t.deepEqual(updateCounts({}, '${a}'), {
+  t.deepEqual(updateCounts('${a}', 1, {}), {
     '${a}': 1
   })
 
@@ -23,7 +23,7 @@ test('updateCounts new count', (t) => {
 
 test('updateCounts add count', (t) => {
 
-  t.deepEqual(updateCounts({'${a}': 10}, '${a}'), {
+  t.deepEqual(updateCounts('${a}', 1, {'${a}': 10}), {
     '${a}': 11
   })
 
