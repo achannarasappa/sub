@@ -25,14 +25,16 @@ test.serial('inputStream', async (t) => {
       content: '3'
     },
   ];
-  const outputContents = R.pluck('content', inputFiles)
+  const outputContents = R.map(({ path, content }) => ({ path, stream: content }), inputFiles)
 
   R.map(({ path, content }) => fs.writeFileSync(path, content, 'utf8'), inputFiles)
 
   await inputStream('./tmp/*.json')
-  .sequence()
+  // .sequence()
+  .map(async ({ stream, path }) => ({ stream: await stream.toPromise(Promise), path }))
   .collect()
   .toPromise(Promise)
+  .then((promises) => Promise.all(promises))
   .then((testResult) => {
   
     t.deepEqual(
