@@ -22,19 +22,29 @@ const execFunction = (file, func, funcArgs = [], commandPrefix = '') => {
 
 const removeFile = (path) => {
   
-    try {
-      
-      fs.unlinkSync(path)
-  
-    } catch (e) {
-  
-      console.log(e.message);
-  
-    }
+  try {
     
-  };
+    fs.unlinkSync(path)
+
+  } catch (e) {
+
+    console.log(e.message);
+
+  }
+  
+};
+
+const createFiles = (files) => {
+  return R.map(({ path, content }) => fs.writeFileSync(path, content, 'utf8'), files)
+};
+
+const removeFiles = (files) => {
+  return R.map(({ path, content }) => removeFile(path), files)
+};
 
 module.exports = {
   execFunction,
-  removeFile
+  removeFile,
+  createFiles,
+  removeFiles
 };
