@@ -3,7 +3,8 @@ const fs = require('fs');
 const _ = require('highland');
 const R = require('ramda');
 const {
-  removeFile
+  createFiles,
+  removeFiles
 } = require('./_util')
 const {
   inputFiles,
@@ -12,9 +13,7 @@ const {
   inputStream
 } = require('../lib/input');
 
-test.beforeEach((t) => {
-	R.map(({ path, content }) => fs.writeFileSync(path, content, 'utf8'), inputFiles)
-});
+test.beforeEach((t) => createFiles(inputFiles));
 
 test.serial('inputStream', async (t) => {
 
@@ -37,6 +36,4 @@ test.serial('inputStream', async (t) => {
 
 })
 
-test.afterEach((t) => {
-	R.map(({ path, content }) => removeFile(path), inputFiles)
-});
+test.afterEach((t) => removeFiles(inputFiles));
