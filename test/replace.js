@@ -35,12 +35,10 @@ test('replaceAndCount 3 replacements', (t) => {
     a: 1,
     b: 2
   };
-  const inputReplaceRegex = new RegExp('a|b', 'g');
 
   t.deepEqual(
     replaceAndCount(
       inputReplaceMap,
-      inputReplaceRegex,
       'aaa bbb ccc ddd'
     ),
     {
@@ -64,7 +62,6 @@ test('replaceAndCount no replacements', (t) => {
   t.deepEqual(
     replaceAndCount(
       inputReplaceMap,
-      inputReplaceRegex,
       'aaa bbb ccc 444'
     ),
     {
@@ -81,12 +78,10 @@ test('replaceInStream with replacements', async (t) => {
     a: 1,
     b: 2
   };
-  const intputReplaceRegex = new RegExp('a|b', 'g');
   const inputStream = _(['abcdefg\ngfbdcbeb'])
 
   await replaceInStream(
     inputReplaceMap,
-    intputReplaceRegex,
     inputStream
   )
   .collect()
@@ -123,12 +118,10 @@ test('replaceInStream no replacements', async (t) => {
     a: 1,
     b: 2
   };
-  const intputReplaceRegex = new RegExp('a|b', 'g');
   const inputStream = _(['trcdefg\ngfrdcrer'])
 
   await replaceInStream(
     inputReplaceMap,
-    intputReplaceRegex,
     inputStream
   )
   .collect()
