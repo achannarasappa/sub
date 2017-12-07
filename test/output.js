@@ -11,6 +11,8 @@ const {
   writeFile,
   writeStdout,
   gatherCounts,
+  convertFromReplaceMap,
+  convertToFileReplacementCounts
 } = require('../lib/output');
 
 const inputArray = [
@@ -147,4 +149,40 @@ test.serial('writeOutput stdout', async (t) => {
     outputContent
   )
 
+})
+
+test('convertToFileReplacementCounts', (t) => {
+
+  const inputFileReplacementCounts = [
+    {
+      path: '/tmp/test_1.json',
+      counts: {
+        '${a}': 100,
+        '${b}': 200,
+      },
+    },
+    {
+      path: '/tmp/test_2.json',
+      counts: {
+        '${c}': 10,
+        '${b}': 20,
+      },
+    }
+  ];
+  const outputFileReplacementCount = {
+    '/tmp/test_1.json': {
+      'a': 100,
+      'b': 200,
+    },
+    '/tmp/test_2.json': {
+      'c': 10,
+      'b': 20,
+    }
+  };
+
+  t.deepEqual(
+    convertToFileReplacementCounts(inputFileReplacementCounts),
+    outputFileReplacementCount
+  )
+  
 })
