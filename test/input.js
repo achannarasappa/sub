@@ -6,28 +6,19 @@ const {
   removeFile
 } = require('./_util')
 const {
+  inputFiles,
+} = require('./_fixtures')
+const {
   inputStream
 } = require('../lib/input');
 
+test.beforeEach((t) => {
+	R.map(({ path, content }) => fs.writeFileSync(path, content, 'utf8'), inputFiles)
+});
+
 test.serial('inputStream', async (t) => {
 
-  const inputFiles = [
-    {
-      path: './tmp/test-1.json',
-      content: '1'
-    },
-    {
-      path: './tmp/test-2.json',
-      content: '2'
-    },
-    {
-      path: './tmp/test-3.json',
-      content: '3'
-    },
-  ];
   const outputContents = R.map(({ path, content }) => ({ path, stream: content }), inputFiles)
-
-  R.map(({ path, content }) => fs.writeFileSync(path, content, 'utf8'), inputFiles)
 
   await inputStream('./tmp/*.json')
   // .sequence()
@@ -44,6 +35,8 @@ test.serial('inputStream', async (t) => {
     
   })
 
-  R.map(({ path, content }) => removeFile(path), inputFiles)
-
 })
+
+test.afterEach((t) => {
+	R.map(({ path, content }) => removeFile(path), inputFiles)
+});

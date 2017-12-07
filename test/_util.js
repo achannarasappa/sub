@@ -1,5 +1,6 @@
 const shell = require('shelljs');
 const R = require('ramda');
+const fs = require('fs');
 
 const execFunction = (file, func, funcArgs = [], commandPrefix = '') => {
   
