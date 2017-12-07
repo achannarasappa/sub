@@ -93,15 +93,4 @@ test('convertToReplaceMap', (t) => {
   
 })
 
-test('createReplaceRegex', (t) => {
-
-  const testResult = createReplaceRegex(outputReplaceMap)
-
-  t.deepEqual(
-    testResult,
-    outputReplaceRegex
-  )
-
-})
-
 test.todo('readSource stdin error')
