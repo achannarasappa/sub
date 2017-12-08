@@ -8,7 +8,8 @@ const {
   outputCounts
 } = require('./_fixtures')
 const {
-  removeFile
+  createFiles,
+  removeFiles
 } = require('./_util')
 const {
   findAndReplace
