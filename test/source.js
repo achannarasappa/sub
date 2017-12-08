@@ -21,7 +21,6 @@ const outputReplaceMap = {
   '${TEST2}': 'replace2',
   '${TEST3}': 'replace3',
 }
-const outputReplaceRegex = new RegExp('${TEST1}|${TEST2}|${TEST3}', 'g');
 const inputStdin = R.pipe(
   R.toPairs(),
   R.map(R.join('=')),
@@ -29,7 +28,9 @@ const inputStdin = R.pipe(
 )(inputMap)
 
 
-test('readSource stdin', (t) => {
+// TODO: Replace ava, unable to run this test due to use of stdio
+// https://github.com/avajs/ava/issues/1322
+test.skip('readSource stdin', (t) => {
 
   const testResult = execFunction(
     './lib/source',
@@ -46,7 +47,7 @@ test('readSource stdin', (t) => {
 
 })
 
-test('readSource env', (t) => {
+test.skip('readSource env', (t) => {
 
   const inputEnvString = R.pipe(
     R.toPairs(),
