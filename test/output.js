@@ -34,17 +34,18 @@ const inputArray = [
   }
 ];
 const outputContent = '12cdefg\ngf2dc2e2';
-const outputPath = 'output-test.txt';
+const outputPath = './tmp/output-test.txt';
 const outputFiles = [
   {
     path: outputPath,
     content: outputContent
   }
 ];
+const inputContent = R.pipe(R.pluck('lineText'), R.join('\n'))(inputArray);
 const inputFiles = [
   {
     path: outputFiles[0].path,
-    content: R.pipe(R.pluck('lineText'), R.join('\n'))(inputArray)
+    content: inputContent
   }
 ];
 
@@ -96,11 +97,17 @@ test.serial('outputStream inPlace string', async (t) => {
   await outputStream(outputPath, inputExtension, inputStream)
 
   t.is(
-    fs.readFileSync(inputPath, 'utf8'),
+    fs.readFileSync(outputPath, 'utf8'),
     outputContent
   )
 
-  removeFiles(outputFiles)
+  t.is(
+    fs.readFileSync(inputPath, 'utf8'),
+    inputContent
+  )
+
+  removeFile(outputPath)
+  removeFile(inputPath)
   
 })
 
