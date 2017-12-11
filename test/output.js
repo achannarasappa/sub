@@ -1,9 +1,12 @@
 const test = require('ava');
 const _ = require('highland');
 const fs = require('fs');
+const R = require('ramda');
 const interceptStdout = require("intercept-stdout");
 const {
-  removeFile
+  removeFile,
+  removeFiles,
+  createFiles
 } = require('./_util')
 const {
   outputStream,
@@ -31,18 +34,30 @@ const inputArray = [
   }
 ];
 const outputContent = '12cdefg\ngf2dc2e2';
+const outputPath = 'output-test.txt';
+const outputFiles = [
+  {
+    path: outputPath,
+    content: outputContent
+  }
+];
+const inputFiles = [
+  {
+    path: outputFiles[0].path,
+    content: R.pipe(R.pluck('lineText'), R.join('\n'))(inputArray)
+  }
+];
 
 test.serial('outputStream inPlace false', async (t) => {
 
   const inputStream = _(inputArray)
-  const inputPath = './tmp/outputStream.txt';
 
   let testOutput = '';
   const stopStdoutcapture = interceptStdout((testLine) => {
     testOutput += testLine
   })
 
-  await outputStream(inputPath, false, inputStream)
+  await outputStream(outputPath, false, inputStream)
 
   stopStdoutcapture()
   
@@ -53,51 +68,57 @@ test.serial('outputStream inPlace false', async (t) => {
   
 })
 
-test('outputStream inPlace true', async (t) => {
+test.serial('outputStream inPlace true', async (t) => {
 
   const inputStream = _(inputArray)
-  const inputPath = './tmp/outputStream.txt';
 
-  await outputStream(inputPath, true, inputStream)
+  createFiles(inputFiles)
 
-  t.is(
-    fs.readFileSync(inputPath, 'utf8'),
-    outputContent
-  )
-  
-})
-
-test('outputStream inPlace string', async (t) => {
-
-  const inputStream = _(inputArray)
-  const inputPath = './tmp/outputStream.txt';
-  const outputPath = './tmp/outputStream.txt.backup';
-
-  await outputStream(inputPath, '.backup', inputStream)
+  await outputStream(outputPath, true, inputStream)
 
   t.is(
     fs.readFileSync(outputPath, 'utf8'),
     outputContent
   )
 
-  removeFile(outputPath)
+  removeFiles(outputFiles)
   
 })
 
-test('writeOutput file', async (t) => {
+test.serial('outputStream inPlace string', async (t) => {
 
   const inputStream = _(inputArray)
-  const inputPath = './tmp/writeOutput.txt';
-  const intputWriteFileFn = writeFile(inputPath);
+  const inputExtension = '.backup';
+  const inputPath = `${outputPath}${inputExtension}`;
 
-  await writeOutput(inputStream, intputWriteFileFn)
-  
+  createFiles(inputFiles)
+
+  await outputStream(outputPath, inputExtension, inputStream)
+
   t.is(
     fs.readFileSync(inputPath, 'utf8'),
     outputContent
   )
 
-  removeFile(inputPath)
+  removeFiles(outputFiles)
+  
+})
+
+test.serial('writeOutput file', async (t) => {
+
+  const inputStream = _(inputArray)
+  const intputWriteFileFn = writeFile(outputPath);
+
+  createFiles(inputFiles)
+
+  await writeOutput(inputStream, intputWriteFileFn)
+  
+  t.is(
+    fs.readFileSync(outputPath, 'utf8'),
+    outputContent
+  )
+
+  removeFiles(outputFiles)
 
 })
 
