@@ -19,8 +19,7 @@ test.serial('inputStream', async (t) => {
 
   const outputContents = R.map(({ path, content }) => ({ path, stream: content }), inputFiles)
 
-  await inputStream('./tmp/*.json')
-  // .sequence()
+  await inputStream(['./tmp/*.json'])
   .map(async ({ stream, path }) => ({ stream: await stream.toPromise(Promise), path }))
   .collect()
   .toPromise(Promise)
