@@ -38,6 +38,10 @@ const createFiles = (files) => {
   return R.map(({ path, content }) => fs.writeFileSync(path, content, 'utf8'), files)
 };
 
+const readFiles = (files) => {
+    return R.map(({ path, content }) => fs.readFileSync(path, 'utf8'), files)
+};
+
 const removeFiles = (files) => {
   return R.map(({ path, content }) => removeFile(path), files)
 };
@@ -46,5 +50,6 @@ module.exports = {
   execFunction,
   removeFile,
   createFiles,
-  removeFiles
+  removeFiles,
+  readFiles
 };

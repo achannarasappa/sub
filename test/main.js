@@ -28,4 +28,4 @@ test.serial('findAndReplace', async (t) => {
 
 })
 
-test.afterEach((t) => removeFiles(inputFiles));
+// test.afterEach((t) => removeFiles(inputFiles));
