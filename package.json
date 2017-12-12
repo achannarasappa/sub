@@ -1,5 +1,5 @@
 {
-  "name": "substitute",
+  "name": "far",
   "version": "1.0.0",
   "description": "",
   "main": "lib/cli.js",
@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "lint": "eslint --fix . || exit 0"
+    "lint": "eslint --fix . || exit 0",
+    "test": "ava test/"
   },
   "author": "Ani Channarasappa <npm@fireantx.com> (https://github.com/achannarasappa)",
   "license": "MIT",
@@ -16,10 +17,18 @@
     "@achannarasappa/eslint-config": "^1.0.1",
     "ava": "^0.24.0",
     "eslint": "^4.12.1",
-    "pkg": "^4.3.0-beta.1"
+    "intercept-stdout": "^0.1.2",
+    "pkg": "^4.3.0-beta.1",
+    "shelljs": "^0.7.8"
   },
   "dependencies": {
-    "yargs": "^10.0.3"
+    "fs-extra": "^4.0.3",
+    "get-stdin": "^5.0.1",
+    "glob": "^7.1.2",
+    "highland": "^2.11.1",
+    "ramda": "^0.25.0",
+    "yargs": "^10.0.3",
+    "tmp": "0.0.33"
   },
   "eslintConfig": {
     "extends": "@achannarasappa/eslint-config"
