@@ -12,14 +12,14 @@ const {
   removeFiles
 } = require('./_util')
 const {
-  findAndReplace
+  substitute
 } = require('../lib/main');
 
 test.beforeEach((t) => createFiles(inputFiles));
 
-test.serial('findAndReplace', async (t) => {
+test.serial('substitute', async (t) => {
   
-  const testCounts = await findAndReplace('./tmp/*.json', inputReplaceMap, false);
+  const testCounts = await substitute('./tmp/*.json', inputReplaceMap, false);
 
   t.deepEqual(
     testCounts,
@@ -28,4 +28,4 @@ test.serial('findAndReplace', async (t) => {
 
 })
 
-// test.afterEach((t) => removeFiles(inputFiles));
+test.afterEach((t) => removeFiles(inputFiles));
