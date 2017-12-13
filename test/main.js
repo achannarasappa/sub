@@ -19,7 +19,7 @@ test.beforeEach((t) => createFiles(inputFiles));
 
 test.serial('substitute', async (t) => {
   
-  const testCounts = await substitute('./tmp/*.json', inputReplaceMap, false);
+  const testCounts = await substitute(['./tmp/*.json'], inputReplaceMap, false);
 
   t.deepEqual(
     testCounts,
