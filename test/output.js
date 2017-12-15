@@ -2,6 +2,7 @@ const test = require('ava');
 const _ = require('highland');
 const fs = require('fs');
 const R = require('ramda');
+const colors = require('colors')
 const interceptStdout = require("intercept-stdout");
 const {
   removeFile,
@@ -9,13 +10,14 @@ const {
   createFiles
 } = require('./_util')
 const {
+  convertFromReplaceMap,
+  convertToFileReplacementCounts,
   outputStream,
   writeOutput,
   writeFile,
   writeStdout,
   gatherCounts,
-  convertFromReplaceMap,
-  convertToFileReplacementCounts
+  printCounts
 } = require('../lib/output');
 
 const inputArray = [
@@ -48,6 +50,72 @@ const inputFiles = [
     content: inputContent
   }
 ];
+const inputFileReplacementCounts = [
+  {
+    path: '/tmp/test_1.json',
+    counts: {
+      '${a}': 100,
+      '${b}': 200,
+    },
+  },
+  {
+    path: '/tmp/test_2.json',
+    counts: {
+      '${c}': 10,
+      '${b}': 20,
+    },
+  }
+];
+const outputFileReplacementCount = {
+  '/tmp/test_1.json': {
+    'a': 100,
+    'b': 200,
+  },
+  '/tmp/test_2.json': {
+    'c': 10,
+    'b': 20,
+  }
+};
+const outputTerminalCounts = [
+  '/tmp/test_1.json: '.green,
+  '  ' + 'a: '.green + '100'.blue,
+  '  ' + 'b: '.green + '200'.blue,
+  '/tmp/test_2.json: '.green,
+  '  ' + 'c: '.green + '10'.blue,
+  '  ' + 'b: '.green + '20'.blue,
+  '',
+].join('\n');
+
+test.serial('outputStream dryRun true', async (t) => {
+
+  const inputStream = _(inputArray)
+ 
+  let testOutput = '';
+  const stopStdoutcapture = interceptStdout((testLine) => {
+    testOutput += testLine
+  })
+
+  createFiles(inputFiles)
+
+  await outputStream(outputPath, false, true, inputStream)
+
+  const testFileContents = fs.readFileSync(outputPath, 'utf8');
+
+  stopStdoutcapture()
+  
+  t.is(
+    testOutput,
+    ''
+  )
+  
+  t.is(
+    inputContent,
+    testFileContents
+  )
+
+  removeFiles(outputFiles)
+  
+})
 
 test.serial('outputStream inPlace false', async (t) => {
 
@@ -58,7 +126,7 @@ test.serial('outputStream inPlace false', async (t) => {
     testOutput += testLine
   })
 
-  await outputStream(outputPath, false, inputStream)
+  await outputStream(outputPath, false, false, inputStream)
 
   stopStdoutcapture()
   
@@ -75,7 +143,7 @@ test.serial('outputStream inPlace true', async (t) => {
 
   createFiles(inputFiles)
 
-  await outputStream(outputPath, true, inputStream)
+  await outputStream(outputPath, true, false, inputStream)
 
   t.is(
     fs.readFileSync(outputPath, 'utf8'),
@@ -94,7 +162,7 @@ test.serial('outputStream inPlace string', async (t) => {
 
   createFiles(inputFiles)
 
-  await outputStream(outputPath, inputExtension, inputStream)
+  await outputStream(outputPath, inputExtension, false, inputStream)
 
   t.is(
     fs.readFileSync(outputPath, 'utf8'),
@@ -181,36 +249,55 @@ test.serial('writeOutput stdout', async (t) => {
 
 test('convertToFileReplacementCounts', (t) => {
 
-  const inputFileReplacementCounts = [
-    {
-      path: '/tmp/test_1.json',
-      counts: {
-        '${a}': 100,
-        '${b}': 200,
-      },
-    },
-    {
-      path: '/tmp/test_2.json',
-      counts: {
-        '${c}': 10,
-        '${b}': 20,
-      },
-    }
-  ];
-  const outputFileReplacementCount = {
-    '/tmp/test_1.json': {
-      'a': 100,
-      'b': 200,
-    },
-    '/tmp/test_2.json': {
-      'c': 10,
-      'b': 20,
-    }
-  };
-
   t.deepEqual(
     convertToFileReplacementCounts(inputFileReplacementCounts),
     outputFileReplacementCount
   )
   
+})
+
+test('printCounts terminal output', (t) => {
+
+  let testOutput = '';
+  const stopStdoutcapture = interceptStdout((testLine) => {
+    testOutput += testLine
+  })
+
+  const testResult = printCounts(true, outputFileReplacementCount);
+
+  stopStdoutcapture()
+
+  t.deepEqual(
+    testResult,
+    outputFileReplacementCount
+  )
+  
+  t.deepEqual(
+    testOutput,
+    outputTerminalCounts
+  )
+
+})
+
+test('printCounts passthrough', (t) => {
+
+  let testOutput = '';
+  const stopStdoutcapture = interceptStdout((testLine) => {
+    testOutput += testLine
+  })
+
+  const testResult = printCounts(false, outputFileReplacementCount);
+
+  stopStdoutcapture()
+
+  t.deepEqual(
+    testResult,
+    outputFileReplacementCount
+  )
+  
+  t.deepEqual(
+    testOutput,
+    ''
+  )
+
 })
