@@ -35,5 +35,8 @@
   },
   "eslintConfig": {
     "extends": "@achannarasappa/eslint-config"
-  }
+  },
+  "eslintIgnore": [
+    "lib/cli.js"
+  ]
 }
