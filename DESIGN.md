@@ -10,8 +10,6 @@
 - interoperability with linux toolchain and command line workflows
 
 ## Features
-- source variables from a json file
-- source variables from a text file
 - source variables from environment
 - source variables from stdin
 - bash variable substitution syntax
@@ -26,15 +24,34 @@
 ## Interface
 ```bash
 # Replace environment variables in file and output to stdout
-far file.txt
+sub file.txt
 # Replace in place
-far -i file.txt
+sub -i file.txt
 # Replace in all text files appending a suffix to original files
-far -i ".backup" "./*.txt"
-# Replace with json file contents as source
-far -s replacements.json file.txt
+sub -i ".backup" "./*.txt"
 # Replace with stdin as source
-gpg --decrypt secrets.gpg | far file.txt
-# Verbose logging
-far -v -i "./*.txt"
+gpg --decrypt secrets.gpg | sub file.txt
+# Replace and output replacement statistics
+sub -v -i "./*.txt"
+# Output replacement statistics only
+sub -v -q "./*.txt"
 ```
+
+## Process Sequence
+- read input files
+  - get array of all files
+  - create readable stream for each file
+- read replacements
+  - if stdin, read stdin else read env
+  - split input on `=` and `\n`
+  - unique
+- make replacements
+  - replace variable in text
+  - track instance replace count per variable
+- output replacements
+  - file output
+    - if `-i` write to disk
+    - if `-q` no output
+    - if no flags to stdout
+  - summary
+    - if `-v` output replacement statistics per file
