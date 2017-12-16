@@ -16,7 +16,7 @@ const R = require('ramda');
 
 test.beforeEach((t) => createFiles(inputFiles));
 
-test.serial('file glob literal', (t) => {
+test('file glob literal', (t) => {
 
   shell.exec(`echo "${inputReplaceText}" | node ./lib/cli.js tmp/*.json -i`, { silent: true })
 
@@ -27,7 +27,7 @@ test.serial('file glob literal', (t) => {
 
 })
 
-test.serial('file glob string', (t) => {
+test('file glob string', (t) => {
 
 
   shell.exec(`echo "${inputReplaceText}" | node ./lib/cli.js "tmp/*.json" -i`, { silent: true })
@@ -38,7 +38,7 @@ test.serial('file glob string', (t) => {
   )
 
 })
-test.serial('in-place with file rename', (t) => {
+test('in-place with file rename', (t) => {
 
   shell.exec(`echo "${inputReplaceText}" | node ./lib/cli.js "tmp/*.json" -i ".backup"`, { silent: true })
   const testFiles = R.map((file) => R.assoc('path', `${file.path}.backup`, file), inputFiles);
@@ -55,7 +55,7 @@ test.serial('in-place with file rename', (t) => {
 
 })
 
-test.serial('in-place with count', (t) => {
+test('in-place with count', (t) => {
 
   const { stdout } = shell.exec(`echo "${inputReplaceText}" | node ./lib/cli.js "tmp/*.json" -c -i`, { silent: true }) 
 
@@ -71,7 +71,7 @@ test.serial('in-place with count', (t) => {
   
 })
 
-test.serial('dry run with count', (t) => {
+test('dry run with count', (t) => {
 
   const { stdout } = shell.exec(`echo "${inputReplaceText}" | node ./lib/cli.js "tmp/*.json" -c -d`, { silent: true }) 
   
