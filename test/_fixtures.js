@@ -1,17 +1,20 @@
 const colors = require('colors');
+const { join } = require('path');
+const R = require('ramda');
+const getPath = (i) => join('tmp', `test-${i}.json`)
 
 module.exports = {
   inputFiles: [
     {
-      path: './tmp/test-1.json',
+      path: getPath(1),
       content: '1foo${bar}',
     },
     {
-      path: './tmp/test-2.json',
+      path: getPath(2),
       content: '2foo${bar}${bar}',
     },
     {
-      path: './tmp/test-3.json',
+      path: getPath(3),
       content: '3foo${bar}${bar}${bar}',
     },
   ],
@@ -22,22 +25,18 @@ module.exports = {
     '3foo${bar}${bar}${bar}',
   ],
   inputReplaceText: 'bar=baz',
-  outputCounts: {
-    './tmp/test-1.json': { bar: 1 },
-    './tmp/test-2.json': { bar: 2 },
-    './tmp/test-3.json': { bar: 3 },
-  },
+  outputCounts: R.fromPairs(R.map((v) => [ getPath(v), { bar: v } ], R.range(1, 4))),
   outputContents: [
     '1foobaz',
     '2foobazbaz',
     '3foobazbazbaz',
   ],
   outputTerminalCounts: [
-    'tmp/test-1.json: ',
+    `${getPath(1)}: `,
     '  bar: 1',
-    'tmp/test-2.json: ',
+    `${getPath(2)}: `,
     '  bar: 2',
-    'tmp/test-3.json: ',
+    `${getPath(3)}: `,
     '  bar: 3',
     '',
   ].join('\n'),
