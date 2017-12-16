@@ -5,27 +5,25 @@ const R = require('ramda');
 const {
   inputFiles,
   inputReplaceMap,
-  outputCounts
-} = require('./_fixtures')
+  outputCounts,
+} = require('./_fixtures');
 const {
   createFiles,
-  removeFiles
-} = require('./_util')
-const {
-  substitute
-} = require('../lib/main');
+  removeFiles,
+} = require('./_util');
+const { substitute } = require('../lib/main');
 
 test.beforeEach((t) => createFiles(inputFiles));
 
 test('substitute', async (t) => {
-  
+
   const testCounts = await substitute(['./tmp/*.json'], inputReplaceMap, false);
 
   t.deepEqual(
     testCounts,
-    outputCounts
-  )
+    outputCounts,
+  );
 
-})
+});
 
 test.afterEach((t) => removeFiles(inputFiles));

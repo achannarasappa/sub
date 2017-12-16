@@ -1,23 +1,21 @@
-const colors = require('colors')
+const colors = require('colors');
 
 module.exports = {
   inputFiles: [
     {
       path: './tmp/test-1.json',
-      content: '1foo${bar}'
+      content: '1foo${bar}',
     },
     {
       path: './tmp/test-2.json',
-      content: '2foo${bar}${bar}'
+      content: '2foo${bar}${bar}',
     },
     {
       path: './tmp/test-3.json',
-      content: '3foo${bar}${bar}${bar}'
+      content: '3foo${bar}${bar}${bar}',
     },
   ],
-  inputReplaceMap: {
-    '${bar}': 'baz'
-  },
+  inputReplaceMap: { '${bar}': 'baz' },
   inputContents: [
     '1foo${bar}',
     '2foo${bar}${bar}',
@@ -25,15 +23,9 @@ module.exports = {
   ],
   inputReplaceText: 'bar=baz',
   outputCounts: {
-    './tmp/test-1.json': {
-      bar: 1
-    },
-    './tmp/test-2.json': {
-      bar: 2
-    },
-    './tmp/test-3.json': {
-      bar: 3
-    },
+    './tmp/test-1.json': { bar: 1 },
+    './tmp/test-2.json': { bar: 2 },
+    './tmp/test-3.json': { bar: 3 },
   },
   outputContents: [
     '1foobaz',
@@ -49,4 +41,4 @@ module.exports = {
     '  bar: 3',
     '',
   ].join('\n'),
-}
+};

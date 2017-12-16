@@ -8,140 +8,123 @@ const {
 
 const inputResult = {
   lineText: 'aaa bbb ccc 444',
-  counts: {
-    d: 3
-  }
+  counts: { d: 3 },
 };
 
 test('updateCounts new count', (t) => {
 
-  t.deepEqual(updateCounts('${a}', 1, {}), {
-    '${a}': 1
-  })
+  t.deepEqual(updateCounts('${a}', 1, {}), { '${a}': 1 });
 
-})
+});
 
 test('updateCounts add count', (t) => {
 
-  t.deepEqual(updateCounts('${a}', 1, {'${a}': 10}), {
-    '${a}': 11
-  })
+  t.deepEqual(updateCounts('${a}', 1, { '${a}': 10 }), { '${a}': 11 });
 
-})
+});
 
 test('replaceAndCount 3 replacements', (t) => {
 
   const inputReplaceMap = {
     a: 1,
-    b: 2
+    b: 2,
   };
 
   t.deepEqual(
     replaceAndCount(
       inputReplaceMap,
-      'aaa bbb ccc ddd'
+      'aaa bbb ccc ddd',
     ),
     {
       lineText: '111 222 ccc ddd',
       counts: {
         a: 3,
-        b: 3
-      }
-    }
-  )
+        b: 3,
+      },
+    },
+  );
 
-})
+});
 
 test('replaceAndCount no replacements', (t) => {
 
-  const inputReplaceMap = {
-    e: 5
-  };
+  const inputReplaceMap = { e: 5 };
   const inputReplaceRegex = new RegExp('e', 'g');
 
   t.deepEqual(
     replaceAndCount(
       inputReplaceMap,
-      'aaa bbb ccc 444'
+      'aaa bbb ccc 444',
     ),
     {
       lineText: 'aaa bbb ccc 444',
-      counts: {}
-    }
-  )
+      counts: {},
+    },
+  );
 
-})
+});
 
 test('replaceInStream with replacements', async (t) => {
 
   const inputReplaceMap = {
     a: 1,
-    b: 2
+    b: 2,
   };
-  const inputStream = _(['abcdefg\ngfbdcbeb'])
+  const inputStream = _(['abcdefg\ngfbdcbeb']);
 
   await replaceInStream(
     inputReplaceMap,
-    inputStream
+    inputStream,
   )
-  .collect()
-  .toPromise(Promise)
-  .then(result => {
+    .collect()
+    .toPromise(Promise)
+    .then((result) => {
 
-    t.deepEqual(
-      result,
-      [
-        {
+      t.deepEqual(
+        result,
+        [{
           lineText: '12cdefg',
           counts: {
             a: 1,
-            b: 1
-          }
-        },
-        {
+            b: 1,
+          },
+        }, {
           lineText: 'gf2dc2e2',
-          counts: {
-            b: 3
-          }
-        }
-      ]
-    )
+          counts: { b: 3 },
+        }],
+      );
 
-  })
+    });
 
-  
-})
+});
 
 test('replaceInStream no replacements', async (t) => {
 
   const inputReplaceMap = {
     a: 1,
-    b: 2
+    b: 2,
   };
-  const inputStream = _(['trcdefg\ngfrdcrer'])
+  const inputStream = _(['trcdefg\ngfrdcrer']);
 
   await replaceInStream(
     inputReplaceMap,
-    inputStream
+    inputStream,
   )
-  .collect()
-  .toPromise(Promise)
-  .then(result => {
+    .collect()
+    .toPromise(Promise)
+    .then((result) => {
 
-    t.deepEqual(
-      result,
-      [
-        {
+      t.deepEqual(
+        result,
+        [{
           lineText: 'trcdefg',
-          counts: {}
-        },
-        {
+          counts: {},
+        }, {
           lineText: 'gfrdcrer',
-          counts: {}
-        }
-      ]
-    )
+          counts: {},
+        }],
+      );
 
-  })
-  
-})
+    });
+
+});
