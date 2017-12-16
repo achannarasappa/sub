@@ -86,7 +86,7 @@ const outputTerminalCounts = [
   '',
 ].join('\n');
 
-test.serial('outputStream dryRun true', async (t) => {
+test('outputStream dryRun true', async (t) => {
 
   const inputStream = _(inputArray)
  
@@ -117,7 +117,7 @@ test.serial('outputStream dryRun true', async (t) => {
   
 })
 
-test.serial('outputStream inPlace false', async (t) => {
+test('outputStream inPlace false', async (t) => {
 
   const inputStream = _(inputArray)
 
@@ -137,7 +137,7 @@ test.serial('outputStream inPlace false', async (t) => {
   
 })
 
-test.serial('outputStream inPlace true', async (t) => {
+test('outputStream inPlace true', async (t) => {
 
   const inputStream = _(inputArray)
 
@@ -154,7 +154,7 @@ test.serial('outputStream inPlace true', async (t) => {
   
 })
 
-test.serial('outputStream inPlace string', async (t) => {
+test('outputStream inPlace string', async (t) => {
 
   const inputStream = _(inputArray)
   const inputExtension = '.backup';
@@ -179,7 +179,7 @@ test.serial('outputStream inPlace string', async (t) => {
   
 })
 
-test.serial('writeOutput file', async (t) => {
+test('writeOutput file', async (t) => {
 
   const inputStream = _(inputArray)
   const intputWriteFileFn = writeFile(outputPath);
@@ -227,7 +227,7 @@ test('gatherCounts', async (t) => {
 
 })
 
-test.serial('writeOutput stdout', async (t) => {
+test('writeOutput stdout', async (t) => {
 
   const inputStream = _(inputArray)
 

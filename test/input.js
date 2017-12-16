@@ -15,7 +15,7 @@ const {
 
 test.beforeEach((t) => createFiles(inputFiles));
 
-test.serial('inputStream', async (t) => {
+test('inputStream', async (t) => {
 
   const outputContents = R.map(({ path, content }) => ({ path, stream: content }), inputFiles)
 
