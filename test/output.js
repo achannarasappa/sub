@@ -192,14 +192,14 @@ test('writeOutput file', async (t) => {
 test('writeOutput file error', async (t) => {
 
   const inputStream = _(inputArray);
-  const inputPath = './tmp//';
+  const inputPath = 'tmp//';
   const intputWriteFileFn = writeFile(inputPath);
 
   const testError = await t.throws(writeOutput(inputStream, intputWriteFileFn), Error);
 
   t.is(
     testError.message,
-    'EISDIR: illegal operation on a directory, open \'./tmp//\'',
+    'EISDIR: illegal operation on a directory, open \'tmp//\'',
   );
 
 });
