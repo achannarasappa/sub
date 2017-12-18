@@ -14,4 +14,4 @@ deploy:
     - build/sub-linux
     - build/sub-macos
   on:
-    repo: achannarasappa/sub
+    tags: true
