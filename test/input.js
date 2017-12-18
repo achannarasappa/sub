@@ -19,7 +19,7 @@ test('inputStream', async (t) => {
     path, stream: content,
   }), inputFiles);
 
-  await inputStream(['./tmp/*.json'])
+  await inputStream(['tmp/*.json'])
     .map(async ({
       stream, path,
     }) => ({
