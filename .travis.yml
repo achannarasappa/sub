@@ -1,17 +1,25 @@
 language: node_js
 node_js:
 - '8'
-- '7'
-- '6'
 install: npm install
 script: npm run build
 deploy:
-  provider: releases
-  api_key:
-    secure: TeVO4ZgCeLwUmJhhVMv4YXKxViY/25aPdCrzl853zJZMsHHBfvIUVj1j8iFrcc2B3Pno7BSM3LvpSD+7cQ9KSWv2C9Cf/Wj7tUcqQfWADORz/3zxUmA0MEC36eVt+CP6ag7RHBJ4yKywtvsk04xS49ySXqv3wkE1Ipe62A9WffQkb8Y8KRfUo0Wj8jEILSBtW3Yohnhxu3jS7mS/SzaiXrajstBj3PdnD4KAM3eKCU8YiJGBvy3INSstUmG+yXGDClnr4Pg9u2MZ5kyBn42BMqIae+Fx6i+Gj3xQIdRBzsQk1nBGnpQl275mKgSLYLZ+knxylrRC5F9x9ZPd779RBIBkGlpwLK0zw/umvVJ5MsG180/uGtn+HIi/R/HSHOs+7ikRPFAN9MXNN5iNZN9VJ1G+qDWpNXov4hxUjv8FTb4nTFxzt+AAZBD8u1RY2g9HT7fQfp7U2EckwVjEhDuoVqRaMLKgSU+zZHqdYoknUg1urBEI5D70kTzfFAvgj4RnhOtL7j5hfP3qfdTGfjCgpRSOGKu5/t341AAwfK6EgJP8j22iM7yGBENIZucQ6R+lgPA8DeaPae8H7UrBFVA8izdoyDj+FsCjNv+U393W02jdDxz3fNEXRNw6M5/iJBNj2WKtHeO3aOqpPOdSYe8Jp9w+7KIwwY3IpXIAWAMoYJc=
-  skip_cleanup: true
-  file:
-    - build/sub-linux
-    - build/sub-macos
-  on:
-    tags: true
+  - provider: releases
+    api_key:
+      secure: TeVO4ZgCeLwUmJhhVMv4YXKxViY/25aPdCrzl853zJZMsHHBfvIUVj1j8iFrcc2B3Pno7BSM3LvpSD+7cQ9KSWv2C9Cf/Wj7tUcqQfWADORz/3zxUmA0MEC36eVt+CP6ag7RHBJ4yKywtvsk04xS49ySXqv3wkE1Ipe62A9WffQkb8Y8KRfUo0Wj8jEILSBtW3Yohnhxu3jS7mS/SzaiXrajstBj3PdnD4KAM3eKCU8YiJGBvy3INSstUmG+yXGDClnr4Pg9u2MZ5kyBn42BMqIae+Fx6i+Gj3xQIdRBzsQk1nBGnpQl275mKgSLYLZ+knxylrRC5F9x9ZPd779RBIBkGlpwLK0zw/umvVJ5MsG180/uGtn+HIi/R/HSHOs+7ikRPFAN9MXNN5iNZN9VJ1G+qDWpNXov4hxUjv8FTb4nTFxzt+AAZBD8u1RY2g9HT7fQfp7U2EckwVjEhDuoVqRaMLKgSU+zZHqdYoknUg1urBEI5D70kTzfFAvgj4RnhOtL7j5hfP3qfdTGfjCgpRSOGKu5/t341AAwfK6EgJP8j22iM7yGBENIZucQ6R+lgPA8DeaPae8H7UrBFVA8izdoyDj+FsCjNv+U393W02jdDxz3fNEXRNw6M5/iJBNj2WKtHeO3aOqpPOdSYe8Jp9w+7KIwwY3IpXIAWAMoYJc=
+    skip_cleanup: true
+    file:
+      - build/sub-linux
+      - build/sub-macos
+    on:
+      branch: master
+      tags: true
+      repo: achannarasappa/sub
+  - provider: npm
+    email: ani.channarasappa@gmail.com
+    api_key:
+      secure: rqO4VE0gowl1r4luVKJn1fg7a7tPlRlNSAA/5Wghf8GuLGCRZ75Qax1EuvKErbGDOHSv5yCQFQNIYYPa2NlyYZeuRs1tLCNTbVwehK/Lvb3HLm3LiwJdO0KJzNbRUTeCA2/Gv31np+JhXUegFZaJW+OyL07nbLwRMKCosvte/yLuKo2Bt1MF39oHXWpUfl8cn3DFkPiwL9NuWNvirlNgElv09pB7xSk9PLMA4qPD0/db1+ingO1rrtsDj2cunHUWo7OQQ3LY4s27SycgyzQAK9P9ve4FQlDGBZVSdJzchPZc5j7hISR/LghpGC7JkfuSOoQ985/vtoy8vLsl96nuvVPzvBmVcuS/tzSkRqfpWirwmUpy/ZH3xB1cKTjzJJ8jjPKynPserg1nTZF77+kwsoxO+8GLBA9dl7V8P0d3EFdmgRxXLtclhiaHJ5vFY9GIsevdiOHcChUCe20dR9K1ZhWXLDEv78NnNFFvcUt2e7N7hcUbpSxLBKnAYLqUn8SYjf2HJn+vqn+K93UU9smakN/Aa90Z+0c3t7CieE/AAr17/+1d5ajcm75mkJFNSxhY0k6qvjttIVZt6MY49N0MoQ3zfA1ZBpJOLnlrEC5RvHi7aWJN8lvpyw7azk45XlIT/G3ljJhuIQ0NWpgJQX8QXNKq7KRVESrFjSpKRdZABcM=
+    on:
+      branch: master
+      tags: true
+      repo: achannarasappa/sub

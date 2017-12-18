@@ -1,9 +1,11 @@
 {
-  "name": "sub",
+  "name": "subjs",
   "version": "1.0.0",
   "description": "",
   "main": "lib/cli.js",
-  "bin": "lib/cli.js",
+  "bin": {
+    "sub" : "lib/cli.js"
+  },
   "directories": {
     "test": "test"
   },
