@@ -1,17 +1,25 @@
+# sub
+[![Build Status](https://travis-ci.org/achannarasappa/sub.svg?branch=master)](https://travis-ci.org/achannarasappa/sub)
+
 ## Installation
 TBD
 
 ## Usage
 ```sh
-sub file_pattern [options]
+cli.js <file_pattern> [options...]
+
+Shell-esque parameter substitution in files from env and text data sources
+
+Positionals:
+  file_pattern  file glob pattern e.g. *.json                           [string]
+
+Options:
+  -i, --in-place             Edit files in place                [default: false]
+  -d, --dry-run              Make no substitution               [default: false]
+  -c, --count-substitutions  Output substitution counts         [default: false]
+  -v, --version              Show version number                       [boolean]
+  -h, --help                 Show help                                 [boolean]
 ```
-| Option                      | Default |Type              | Description                |
-|-----------------------------|:-------:|------------------|----------------------------|
-| `-i, --in-place [suffix]`   | `false` | `boolean|string` | Edit files in place        |
-| `-d, --dry-run`             | `false` | `boolean`        | Make no substitution       |
-| `-c, --count-substitutions` | `false` | `boolean`        | Output substitution counts |
-| `-v, --version`             |         |                  | Show version number        |
-| `-h, --help`                |         |                  | Show help                  |
 
 ## Examples
 ```sh
