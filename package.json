@@ -12,7 +12,9 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint --fix . || exit 0",
     "test": "./node_modules/.bin/ava --serial test/",
-    "build": "./node_modules/.bin/pkg package.json -o sub -t=node8-linux-x64,node8-macos-x64 && mv ./sub-* build"
+    "build": "./node_modules/.bin/pkg package.json -o sub -t=node8-linux-x64,node8-macos-x64 && mv ./sub-* build",
+    "coverage": "./node_modules/.bin/nyc npm test",
+    "coverage:coveralls": "npm run coverage && ./node_modules/.bin/nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Ani Channarasappa <npm@fireantx.com> (https://github.com/achannarasappa)",
   "license": "MIT",
@@ -20,8 +22,10 @@
     "@achannarasappa/eslint-config": "^1.0.1",
     "ava": "^0.24.0",
     "colors": "^1.1.2",
+    "coveralls": "^3.0.0",
     "eslint": "^4.12.1",
     "intercept-stdout": "^0.1.2",
+    "nyc": "^11.3.0",
     "pkg": "^4.3.0-beta.1",
     "shelljs": "^0.7.8"
   },
