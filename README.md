@@ -6,7 +6,7 @@ TBD
 
 ## Usage
 ```sh
-cli.js <file_pattern> [options...]
+sub <file_pattern> [options...]
 
 Shell-esque parameter substitution in files from env and text data sources
 
@@ -22,19 +22,22 @@ Options:
 ```
 
 ## Examples
+Pipe from and to stdio
 ```sh
 echo 'Hello my name is ${USER}\nI live in ${HOME}' > greeting.txt
-echo '${USER} speaks ${LANGUAGE}' > language.txt
-
 echo 'USER=rob\nHOME=philadelphia' | sub greeting.txt
 # Hello my name is rob
 # I live in philadelphia
-
+```
+Replace files in place and count replacements
+```sh
+echo 'Hello my name is ${USER}\nI live in ${HOME}' > greeting.txt
+echo '${USER} speaks ${LANGUAGE}' > language.txt
 env | grep 'USER\|LANGUAGE\|HOME'
 # USER=ani
 # HOME=/home/ani
 # LANGUAGE=en_US
-sub *.txt -i -c
+sub *.txt --in-place --count-substitution
 # greeting.txt
 #  USER: 1
 #  HOME: 1
