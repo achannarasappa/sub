@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint --fix . || exit 0",
     "test": "./node_modules/.bin/ava --serial test/",
-    "build": "./node_modules/.bin/pkg package.json --out-path=build -t=node8-linux-x64,node8-win-x64,node8-macos-x64"
+    "build": "./node_modules/.bin/pkg package.json --out-path=build -t=node8-linux-x64,node8-macos-x64"
   },
   "author": "Ani Channarasappa <npm@fireantx.com> (https://github.com/achannarasappa)",
   "license": "MIT",
