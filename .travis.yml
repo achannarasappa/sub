@@ -11,9 +11,8 @@ deploy:
     api_key:
       secure: TeVO4ZgCeLwUmJhhVMv4YXKxViY/25aPdCrzl853zJZMsHHBfvIUVj1j8iFrcc2B3Pno7BSM3LvpSD+7cQ9KSWv2C9Cf/Wj7tUcqQfWADORz/3zxUmA0MEC36eVt+CP6ag7RHBJ4yKywtvsk04xS49ySXqv3wkE1Ipe62A9WffQkb8Y8KRfUo0Wj8jEILSBtW3Yohnhxu3jS7mS/SzaiXrajstBj3PdnD4KAM3eKCU8YiJGBvy3INSstUmG+yXGDClnr4Pg9u2MZ5kyBn42BMqIae+Fx6i+Gj3xQIdRBzsQk1nBGnpQl275mKgSLYLZ+knxylrRC5F9x9ZPd779RBIBkGlpwLK0zw/umvVJ5MsG180/uGtn+HIi/R/HSHOs+7ikRPFAN9MXNN5iNZN9VJ1G+qDWpNXov4hxUjv8FTb4nTFxzt+AAZBD8u1RY2g9HT7fQfp7U2EckwVjEhDuoVqRaMLKgSU+zZHqdYoknUg1urBEI5D70kTzfFAvgj4RnhOtL7j5hfP3qfdTGfjCgpRSOGKu5/t341AAwfK6EgJP8j22iM7yGBENIZucQ6R+lgPA8DeaPae8H7UrBFVA8izdoyDj+FsCjNv+U393W02jdDxz3fNEXRNw6M5/iJBNj2WKtHeO3aOqpPOdSYe8Jp9w+7KIwwY3IpXIAWAMoYJc=
     skip_cleanup: true
-    file:
-      - build/sub-linux
-      - build/sub-macos
+    file_glob: true
+    file: build/sub-*
     on:
       branch: master
       tags: true
