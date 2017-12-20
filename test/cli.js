@@ -14,7 +14,7 @@ const {
 } = require('./_fixtures');
 const R = require('ramda');
 
-test.before(() => shell.exec(`npm run build`, { silent: true }));
+test.before(() => shell.exec('npm run build', { silent: true }));
 
 test.beforeEach(() => createFiles(inputFiles));
 
@@ -106,4 +106,4 @@ test.skip('env source', (t) => {
 
 });
 
-test.afterEach((t) => removeFiles(inputFiles));
+test.afterEach(() => removeFiles(inputFiles));

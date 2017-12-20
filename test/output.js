@@ -1,8 +1,10 @@
+/* eslint-disable no-template-curly-in-string */
 const test = require('ava');
 const _ = require('highland');
+// eslint-disable-next-line no-unused-vars
+const colors = require('colors');
 const fs = require('fs');
 const R = require('ramda');
-const colors = require('colors');
 const interceptStdout = require('intercept-stdout');
 const {
   removeFile,
@@ -10,12 +12,10 @@ const {
   createFiles,
 } = require('./_util');
 const {
-  convertFromReplaceMap,
   convertToFileReplacementCounts,
   outputStream,
   writeOutput,
   writeFile,
-  writeStdout,
   gatherCounts,
   printCounts,
 } = require('../lib/output');

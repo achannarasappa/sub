@@ -1,6 +1,4 @@
 const test = require('ava');
-const fs = require('fs');
-const _ = require('highland');
 const R = require('ramda');
 const {
   createFiles,
@@ -9,7 +7,7 @@ const {
 const { inputFiles } = require('./_fixtures');
 const { inputStream } = require('../lib/input');
 
-test.beforeEach((t) => createFiles(inputFiles));
+test.beforeEach(() => createFiles(inputFiles));
 
 test('inputStream', async (t) => {
 
@@ -39,4 +37,4 @@ test('inputStream', async (t) => {
 
 });
 
-test.afterEach((t) => removeFiles(inputFiles));
+test.afterEach(() => removeFiles(inputFiles));

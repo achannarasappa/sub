@@ -1,7 +1,4 @@
 const test = require('ava');
-const _ = require('highland');
-const fs = require('fs');
-const R = require('ramda');
 const {
   inputFiles,
   inputReplaceMap,
@@ -13,7 +10,7 @@ const {
 } = require('./_util');
 const { substitute } = require('../lib/main');
 
-test.beforeEach((t) => createFiles(inputFiles));
+test.beforeEach(() => createFiles(inputFiles));
 
 test('substitute', async (t) => {
 
@@ -26,4 +23,4 @@ test('substitute', async (t) => {
 
 });
 
-test.afterEach((t) => removeFiles(inputFiles));
+test.afterEach(() => removeFiles(inputFiles));

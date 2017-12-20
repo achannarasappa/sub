@@ -1,12 +1,10 @@
+/* eslint-disable no-template-curly-in-string */
 const test = require('ava');
-const _ = require('highland');
 const R = require('ramda');
 const { execFunction } = require('./_util');
 const {
-  readSource,
   parseStdin,
   convertToReplaceMap,
-  createReplaceRegex,
 } = require('../lib/source');
 
 const inputMap = {

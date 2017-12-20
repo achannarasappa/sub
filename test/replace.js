@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 const test = require('ava');
 const _ = require('highland');
 const {
@@ -5,11 +6,6 @@ const {
   replaceAndCount,
   updateCounts,
 } = require('../lib/replace');
-
-const inputResult = {
-  lineText: 'aaa bbb ccc 444',
-  counts: { d: 3 },
-};
 
 test('updateCounts new count', (t) => {
 
@@ -49,7 +45,6 @@ test('replaceAndCount 3 replacements', (t) => {
 test('replaceAndCount no replacements', (t) => {
 
   const inputReplaceMap = { e: 5 };
-  const inputReplaceRegex = new RegExp('e', 'g');
 
   t.deepEqual(
     replaceAndCount(
