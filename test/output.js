@@ -197,9 +197,9 @@ test('writeOutput file error', async (t) => {
 
   const testError = await t.throws(writeOutput(inputStream, intputWriteFileFn), Error);
 
-  t.is(
+  t.regex(
     testError.message,
-    'EISDIR: illegal operation on a directory, open \'tmp//\'',
+    /tmp\/\/'$/,
   );
 
 });
