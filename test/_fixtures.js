@@ -1,7 +1,8 @@
-const colors = require('colors');
+/* eslint-disable no-template-curly-in-string */
 const { join } = require('path');
 const R = require('ramda');
-const getPath = (i) => join('tmp', `test-${i}.json`)
+
+const getPath = (i) => join('tmp', `test-${i}.json`);
 
 module.exports = {
   inputFiles: [
@@ -25,7 +26,7 @@ module.exports = {
     '3foo${bar}${bar}${bar}',
   ],
   inputReplaceText: 'bar=baz',
-  outputCounts: R.fromPairs(R.map((v) => [ getPath(v), { bar: v } ], R.range(1, 4))),
+  outputCounts: R.fromPairs(R.map((v) => [getPath(v), { bar: v }], R.range(1, 4))),
   outputContents: [
     '1foobaz',
     '2foobazbaz',

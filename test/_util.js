@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const shell = require('shelljs');
 const R = require('ramda');
 const fs = require('fs');
@@ -35,13 +36,9 @@ const createFiles = (files) => R.map(({
   path, content,
 }) => fs.writeFileSync(path, content, 'utf8'), files);
 
-const readFiles = (files) => R.map(({
-  path, content,
-}) => fs.readFileSync(path, 'utf8'), files);
+const readFiles = (files) => R.map(({ path }) => fs.readFileSync(path, 'utf8'), files);
 
-const removeFiles = (files) => R.map(({
-  path, content,
-}) => removeFile(path), files);
+const removeFiles = (files) => R.map(({ path }) => removeFile(path), files);
 
 module.exports = {
   execFunction,
