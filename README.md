@@ -25,14 +25,14 @@ Options:
 ```
 
 ## Examples
-#### Pipe from and to stdio
+#### Pipe in replacements, get substituted file contents to stdout
 ```sh
 echo 'Hello my name is ${USER}\nI live in ${HOME}' > greeting.txt
 echo 'USER=rob\nHOME=philadelphia' | sub greeting.txt
 # Hello my name is rob
 # I live in philadelphia
 ```
-#### Replace files in place and count replacements
+#### Substitute environment variables in files and count replacements
 ```sh
 echo 'Hello my name is ${USER}\nI live in ${HOME}' > greeting.txt
 echo '${USER} speaks ${LANGUAGE}' > language.txt
