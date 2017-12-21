@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint --fix . || exit 0",
     "test": "mkdir -p tmp && ./node_modules/.bin/ava --serial test/",
-    "build": "./node_modules/.bin/pkg package.json -o sub -t=node8-linux-x64,node8-macos-x64 && mkdir -p build && mv ./sub-* build/",
+    "build": "./node_modules/.bin/pkg package.json -o sub -t=node8-linux-x64,node8-macos-x64 && mkdir -p build && cd build && mv ../sub-* ./ && ls | xargs -I {} mv {} {}-x86-64",
     "coverage": "./node_modules/.bin/nyc npm test",
     "coverage:coveralls": "npm run coverage && ./node_modules/.bin/nyc report --reporter=text-lcov | coveralls"
   },
