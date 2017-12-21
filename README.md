@@ -2,7 +2,10 @@
 [![Build Status](https://travis-ci.org/achannarasappa/sub.svg?branch=master)](https://travis-ci.org/achannarasappa/sub) [![Coverage Status](https://coveralls.io/repos/github/achannarasappa/sub/badge.svg?branch=master)](https://coveralls.io/github/achannarasappa/sub?branch=master)
 
 ## Installation
-TBD
+#### NPM
+```sh
+npm install -g subjs
+```
 
 ## Usage
 ```sh
@@ -22,14 +25,14 @@ Options:
 ```
 
 ## Examples
-Pipe from and to stdio
+#### Pipe from and to stdio
 ```sh
 echo 'Hello my name is ${USER}\nI live in ${HOME}' > greeting.txt
 echo 'USER=rob\nHOME=philadelphia' | sub greeting.txt
 # Hello my name is rob
 # I live in philadelphia
 ```
-Replace files in place and count replacements
+#### Replace files in place and count replacements
 ```sh
 echo 'Hello my name is ${USER}\nI live in ${HOME}' > greeting.txt
 echo '${USER} speaks ${LANGUAGE}' > language.txt
