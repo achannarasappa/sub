@@ -4,7 +4,10 @@
 ## Installation
 #### Linux
 ```sh
-wget -qO- https://api.github.com/repos/achannarasappa/sub/releases/latest | grep "sub-linux" | cut -d : -f 2,3 | tr -d \" | sudo wget -qi - -O /usr/local/bin/sub
+wget -qO- https://api.github.com/repos/achannarasappa/sub/releases/latest \
+| grep "sub-linux" \
+| cut -d : -f 2,3 | tr -d \" \
+| sudo wget -qi - -O /usr/local/bin/sub
 sudo chmod +x /usr/local/bin/sub
 ```
 Releases for other operating systems and architectures can be downloaded from [Github Releases](https://github.com/achannarasappa/sub/releases)
