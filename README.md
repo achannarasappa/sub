@@ -1,6 +1,12 @@
 # sub
 [![Build Status](https://travis-ci.org/achannarasappa/sub.svg?branch=master)](https://travis-ci.org/achannarasappa/sub) [![Coverage Status](https://coveralls.io/repos/github/achannarasappa/sub/badge.svg?branch=master)](https://coveralls.io/github/achannarasappa/sub?branch=master)
 
+Shell-esque parameter substitution in files from env and stdin replacement sources
+
+## Features
+* In-place multi-file edits (`sed`'s `-i` option)
+* Substitution count and preview
+
 ## Installation
 #### Linux
 ```sh
