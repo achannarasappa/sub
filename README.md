@@ -11,7 +11,7 @@ Shell-esque parameter substitution in files from env and stdin replacement sourc
 #### Linux
 ```sh
 wget -qO- https://api.github.com/repos/achannarasappa/sub/releases/latest \
-| grep "sub-linux" \
+| grep "/sub-linux" \
 | cut -d : -f 2,3 | tr -d \" \
 | sudo wget -qi - -O /usr/local/bin/sub
 sudo chmod +x /usr/local/bin/sub
@@ -21,6 +21,11 @@ Releases for other operating systems and architectures can be downloaded from [G
 ```sh
 npm install -g subjs
 ```
+#### Docker
+```sh
+echo "alias sub='docker run -t --rm -v \$PWD:/data achannarasappa/sub:latest \$@'" >> "$HOME/.$(echo $0 | tr -d -)rc"
+```
+**Note:** With docker, `file_pattern` will be relative to the current directory by default. Alter the `-v` option in the above alias to change behavior.
 
 ## Usage
 ```sh
