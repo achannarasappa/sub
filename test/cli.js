@@ -13,6 +13,7 @@ const {
   inputContents,
 } = require('./_fixtures');
 const R = require('ramda');
+const TEST_EXECUTABLE_PATH = process.env.TEST_EXECUTABLE_PATH || 'build/sub-linux-x86-64';
 
 test.before(() => shell.exec('npm run build', { silent: true }));
 
@@ -20,7 +21,7 @@ test.beforeEach(() => createFiles(inputFiles));
 
 test('file glob literal', (t) => {
 
-  shell.exec(`echo "${inputReplaceText}" | build/sub-linux tmp/*.json -i`, { silent: true });
+  shell.exec(`echo "${inputReplaceText}" | ${TEST_EXECUTABLE_PATH} tmp/*.json -i`, { silent: true });
 
   t.deepEqual(
     readFiles(inputFiles),
@@ -31,7 +32,7 @@ test('file glob literal', (t) => {
 
 test('file glob string', (t) => {
 
-  shell.exec(`echo "${inputReplaceText}" | build/sub-linux "tmp/*.json" -i`, { silent: true });
+  shell.exec(`echo "${inputReplaceText}" | ${TEST_EXECUTABLE_PATH} "tmp/*.json" -i`, { silent: true });
 
   t.deepEqual(
     readFiles(inputFiles),
@@ -41,7 +42,7 @@ test('file glob string', (t) => {
 });
 test('in-place with file rename', (t) => {
 
-  shell.exec(`echo "${inputReplaceText}" | build/sub-linux "tmp/*.json" -i ".backup"`, { silent: true });
+  shell.exec(`echo "${inputReplaceText}" | ${TEST_EXECUTABLE_PATH} "tmp/*.json" -i ".backup"`, { silent: true });
   const testFiles = R.map((file) => R.assoc('path', `${file.path}.backup`, file), inputFiles);
 
   t.deepEqual(
@@ -58,7 +59,7 @@ test('in-place with file rename', (t) => {
 
 test('in-place with count', (t) => {
 
-  const { stdout } = shell.exec(`echo "${inputReplaceText}" | build/sub-linux "tmp/*.json" -c -i`, { silent: true });
+  const { stdout } = shell.exec(`echo "${inputReplaceText}" | ${TEST_EXECUTABLE_PATH} "tmp/*.json" -c -i`, { silent: true });
 
   t.deepEqual(
     stdout,
@@ -74,7 +75,7 @@ test('in-place with count', (t) => {
 
 test('dry run with count', (t) => {
 
-  const { stdout } = shell.exec(`echo "${inputReplaceText}" | build/sub-linux "tmp/*.json" -c -d`, { silent: true });
+  const { stdout } = shell.exec(`echo "${inputReplaceText}" | ${TEST_EXECUTABLE_PATH} "tmp/*.json" -c -d`, { silent: true });
 
   t.deepEqual(
     stdout,
@@ -92,7 +93,7 @@ test('dry run with count', (t) => {
 // https://github.com/avajs/ava/issues/1322
 test.skip('env source', (t) => {
 
-  const { stdout } = shell.exec(`env ${inputReplaceText} build/sub-linux "tmp/*.json" -c -d`, { silent: true });
+  const { stdout } = shell.exec(`env ${inputReplaceText} ${TEST_EXECUTABLE_PATH} "tmp/*.json" -c -d`, { silent: true });
 
   t.deepEqual(
     stdout,
