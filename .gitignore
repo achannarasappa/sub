@@ -1,5 +1,6 @@
 *
 !.gitignore
+!.dockerignore
 !.travis.yml
 !README.md
 !DESIGN.md
@@ -9,3 +10,4 @@
 !lib/**/*.js
 !test
 !test/**/*.js
+!Dockerfile
