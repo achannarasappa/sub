@@ -7,6 +7,8 @@ Shell-esque parameter substitution in files from env and stdin replacement sourc
 * In-place multi-file edits (like `sed`'s `-i` option)
 * Substitution count and preview
 
+[![asciicast](https://asciinema.org/a/RseuxPw3PK9wigBLqDffXeEk6.png)](https://asciinema.org/a/RseuxPw3PK9wigBLqDffXeEk6)
+
 ## Installation
 #### Linux
 ```sh
@@ -42,36 +44,6 @@ Options:
   -c, --count-substitutions  Output substitution counts         [default: false]
   -v, --version              Show version number                       [boolean]
   -h, --help                 Show help                                 [boolean]
-```
-
-## Examples
-#### Pipe in replacements, get substituted file contents to stdout
-```sh
-echo 'Hello my name is ${USER}\nI live in ${HOME}' > greeting.txt
-echo 'USER=rob\nHOME=philadelphia' | sub greeting.txt
-# Hello my name is rob
-# I live in philadelphia
-```
-#### Substitute environment variables in files and count replacements
-```sh
-echo 'Hello my name is ${USER}\nI live in ${HOME}' > greeting.txt
-echo '${USER} speaks ${LANGUAGE}' > language.txt
-env | grep 'USER\|LANGUAGE\|HOME'
-# USER=ani
-# HOME=/home/ani
-# LANGUAGE=en_US
-sub *.txt --in-place --count-substitution
-# greeting.txt
-#  USER: 1
-#  HOME: 1
-# language.txt
-#  USER: 1
-#  LANGUAGE: 1
-cat greeting.txt
-# Hello my name is ani
-# I live in /home/ani
-cat language.txt
-# ani speaks en_US
 ```
 
 ## Contributions
