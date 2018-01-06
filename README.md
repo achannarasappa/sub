@@ -4,7 +4,7 @@
 Shell-esque parameter substitution in files from env and stdin replacement sources
 
 ## Features
-* In-place multi-file edits (`sed`'s `-i` option)
+* In-place multi-file edits (like `sed`'s `-i` option)
 * Substitution count and preview
 
 ## Installation
