@@ -13,6 +13,7 @@ const {
   inputContents,
 } = require('./_fixtures');
 const R = require('ramda');
+
 const TEST_EXECUTABLE_PATH = process.env.TEST_EXECUTABLE_PATH || 'build/sub-linux-x86-64';
 
 test.before(() => shell.exec('npm run build', { silent: true }));

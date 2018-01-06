@@ -34,17 +34,18 @@ echo "alias sub='docker run -t --rm -v \$PWD:/data achannarasappa/sub:latest \$@
 ```sh
 sub <file_pattern> [options...]
 
-Shell-esque parameter substitution in files from env and text data sources
-
-Positionals:
-  file_pattern  file glob pattern e.g. *.json                           [string]
-
 Options:
   -i, --in-place             Edit files in place                [default: false]
   -d, --dry-run              Make no substitution               [default: false]
   -c, --count-substitutions  Output substitution counts         [default: false]
   -v, --version              Show version number                       [boolean]
   -h, --help                 Show help                                 [boolean]
+
+Examples:
+  sub **/*.json                    Write replaced text to stdout
+  sub **/*.json -i                 Replace files in place
+  sub **/*.json -i=.new            Replace in new file with suffix
+  echo "A=1\nB=2" | sub **/*.json  Replace from stdin source
 ```
 
 ## Contributions
