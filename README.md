@@ -7,6 +7,7 @@ Shell-esque parameter substitution in files from env and stdin replacement sourc
 * In-place multi-file edits (like `sed`'s `-i` option)
 * Substitution count and preview
 
+## Demo
 [![asciicast](https://asciinema.org/a/RseuxPw3PK9wigBLqDffXeEk6.png)](https://asciinema.org/a/RseuxPw3PK9wigBLqDffXeEk6)
 
 ## Installation
