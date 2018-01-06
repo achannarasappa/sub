@@ -28,7 +28,7 @@ npm install -g subjs
 ```sh
 echo "alias sub='docker run -t --rm -v \$PWD:/data achannarasappa/sub:latest \$@'" >> "$HOME/.$(echo $0 | tr -d -)rc"
 ```
-**Note:** With docker, `file_pattern` will be relative to the current directory by default. Alter the `-v` option in the above alias to change behavior.
+**Note:** With docker, `file_pattern` will be relative to the current directory by default and prefixed by `/data` (e.g. `sub /data/**/*.json` rather than `sub **/*.json` to substitute in all json files). Alter the `-v` option in the above alias to change behavior.
 
 ## Usage
 ```sh
