@@ -1,5 +1,5 @@
 # sub
-[![Build Status](https://travis-ci.org/achannarasappa/sub.svg?branch=master)](https://travis-ci.org/achannarasappa/sub) [![Coverage Status](https://coveralls.io/repos/github/achannarasappa/sub/badge.svg?branch=master)](https://coveralls.io/github/achannarasappa/sub?branch=master)
+[![Build Status](https://travis-ci.org/achannarasappa/sub.svg?branch=master)](https://travis-ci.org/achannarasappa/sub) [![Coverage Status](https://coveralls.io/repos/github/achannarasappa/sub/badge.svg?branch=master)](https://coveralls.io/github/achannarasappa/sub?branch=master) [![](https://images.microbadger.com/badges/version/achannarasappa/sub.svg)](https://microbadger.com/images/achannarasappa/sub) [![npm](https://img.shields.io/npm/v/subjs.svg)](https://www.npmjs.com/package/subjs) [![GitHub release](https://img.shields.io/github/release/achannarasappa/sub.svg)](https://github.com/achannarasappa/sub)
 
 Shell-esque parameter substitution in files from env and stdin replacement sources
 
